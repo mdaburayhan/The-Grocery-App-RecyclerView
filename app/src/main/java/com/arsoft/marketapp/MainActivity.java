@@ -1,6 +1,8 @@
 package com.arsoft.marketapp;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemClickListener {
 
     // 1- AdapterView
     RecyclerView recyclerView;
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         Item item3 = new Item(R.drawable.bread, "Bakery", "Bread, Wheat and Beans");
         Item item4 = new Item(R.drawable.beverage, "Beverage", "Juice, Tea, Coffee and soda");
         Item item5 = new Item(R.drawable.milk, "Milk", "Milk, Shakes and Yogurt");
-        Item item6 = new Item(R.drawable.popcorn, "Snacks", "Pop Corn, Donut and Drinks");
+        Item item6 = new Item(R.drawable.popcorn,
+                "Snacks", "Pop Corn, Donut and Drinks");
 
         itemList.add(item1);
         itemList.add(item2);
@@ -55,5 +58,12 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyAdapter(itemList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setClickListener(this);
+
+    }
+
+    @Override
+    public void onCLick(View v, int pos) {
+        Toast.makeText(this, "You Choose: "+itemList.get(pos).getItemName(), Toast.LENGTH_SHORT).show();
     }
 }
